@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="{{url('/home')}}">
+            <a class="nav-link" href="{{route('admin.dashboard')}}">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -61,10 +61,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url('/logout') }}">
+            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('sidebar-logout-form').submit();">
               <i class="mdi mdi-chart-pie menu-icon"></i>
               <span class="menu-title">Logout</span>
             </a>
+            <form id="sidebar-logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+              @csrf
+            </form>
           </li>
         </ul>
       </nav>

@@ -122,3 +122,18 @@ Route::get('/house/{house_id}/edit', 'App\Http\Controllers\HouseController@editH
 Route::put('/house/{house}', 'App\Http\Controllers\HouseController@update');
 Route::get('/houses-image/{house_image_id}/delete', 'App\Http\Controllers\HouseController@destroyImage');
 Route::get('/house/{house_id}/delete', 'App\Http\Controllers\HouseController@destroy');
+
+// Admin Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Guest routes (not authenticated)
+    Route::middleware('guest:admin')->group(function () {
+        Route::get('/login', 'App\Http\Controllers\Admin\Auth\LoginController@showLoginForm')->name('login');
+        Route::post('/login', 'App\Http\Controllers\Admin\Auth\LoginController@login');
+    });
+
+    // Authenticated admin routes
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index')->name('dashboard');
+        Route::post('/logout', 'App\Http\Controllers\Admin\Auth\LoginController@logout')->name('logout');
+    });
+});
